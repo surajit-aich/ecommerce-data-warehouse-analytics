@@ -161,4 +161,4 @@ ecommerce-data-warehouse-analytics/
 
 ## Disclaimer
 
-The dataset used in this project is from Kaggle and is used purely for learning and portfolio purposes. The shipments file was adjusted so that its statuses and dates are consistent.
+The dataset used in this project is from Kaggle and is used purely for learning and portfolio purposes.
