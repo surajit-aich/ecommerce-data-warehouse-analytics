@@ -1,6 +1,6 @@
 # E-Commerce Data Warehouse & Analytics
 
-An end-to-end SQL Server project on e-commerce data: a three-layer data warehouse (Bronze, Silver, Gold) with a star schema, built from 8 raw CSV files.
+An end-to-end SQL Server project on e-commerce data: a three-layer data warehouse (Bronze, Silver, Gold) with a star schema, built from 8 raw CSV files, followed by exploratory data analysis.
 
 ---
 
@@ -10,7 +10,7 @@ An online store keeps its data in separate files: customers, orders, products, p
 
 I built a data warehouse to fix that. The raw files are loaded as they are, cleaned and checked, and then reshaped into a star schema that is easy to query. The warehouse covers about one year of orders (November 2023 to November 2024): 15,000 orders and 20,000 order items.
 
-This repository covers the warehouse. The analysis comes next, in the same repository.
+This repository covers the warehouse and the exploratory data analysis. The advanced analytics comes next, in the same repository.
 
 ---
 
@@ -80,6 +80,24 @@ I checked the warehouse at every layer:
 
 ---
 
+## Exploratory Data Analysis
+
+After building the warehouse, I explored the Gold layer to understand the data before answering business questions. The script `scripts/eda/08_eda_analysis.sql` has 20 questions in seven groups:
+
+| Group | What it looks at |
+|---|---|
+| Database exploration | The Gold views and their columns |
+| Dimension exploration | Customers, products, shipping, payments and suppliers |
+| Date exploration | The time periods of orders, shipments, deliveries and reviews |
+| Key numbers | Revenue, orders, customers, order value spread and a key metrics report |
+| Magnitude | Revenue and reviews by category, state, shipment status and rating |
+| Two categories together | Shipment status by carrier and by product category |
+| Ranking | Top products, products never sold, top customers and top suppliers |
+
+All queries only read the Gold views, so nothing in the warehouse changes.
+
+---
+
 ## Dataset
 
 8 CSV files in the `datasets` folder:
@@ -116,7 +134,8 @@ ecommerce-data-warehouse-analytics/
 │   ├── 01_create_database_and_schemas.sql
 │   ├── bronze/      02_bronze_create_tables.sql, 03_bronze_load_data.sql
 │   ├── silver/      04_silver_create_tables.sql, 06_silver_load_data.sql
-│   └── gold/        07_gold_create_views.sql
+│   ├── gold/        07_gold_create_views.sql
+│   └── eda/         08_eda_analysis.sql
 ├── tests/           05_silver_quality_checks.sql
 └── README.md
 ```
@@ -132,6 +151,7 @@ ecommerce-data-warehouse-analytics/
 5. Optional: run `tests/05_silver_quality_checks.sql` to check the Bronze data.
 6. Run `scripts/silver/06_silver_load_data.sql` to create the load procedure, then run `EXEC silver.load_silver;`.
 7. Run `scripts/gold/07_gold_create_views.sql` to create the Gold views.
+8. Run `scripts/eda/08_eda_analysis.sql` to explore the Gold views.
 
 ---
 
@@ -143,12 +163,12 @@ ecommerce-data-warehouse-analytics/
 - Data quality testing before loading
 - Dimensional modelling: star schema, surrogate keys, fact table grain and a factless fact table
 - Window functions (ROW_NUMBER), multi-table joins and views
+- Exploratory data analysis in SQL: aggregations, subqueries, CTEs, percentiles and shares with window functions
 
 ---
 
 ## Coming Next
 
-- Exploratory data analysis
 - Advanced analytics, with the business problems solved and the recommendations
 
 ---
