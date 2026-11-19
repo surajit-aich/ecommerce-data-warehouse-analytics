@@ -446,6 +446,21 @@ GROUP BY P.category
 ORDER BY total_items DESC;
 
 
+-- Do an order's payment status and shipment status line up, for example are failed payments cancelled
+SELECT 
+	P.payment_status,
+	SP.shipment_status,
+	COUNT(DISTINCT S.order_id) AS orders
+FROM gold.fact_sales AS S
+LEFT JOIN gold.dim_payment AS P
+	ON S.payment_key = P.payment_key
+LEFT JOIN gold.dim_shipments AS SP
+	ON S.shipment_key = SP.shipment_key
+GROUP BY P.payment_status,
+	SP.shipment_status
+ORDER BY P.payment_status, SP.shipment_status;
+
+
 -- ============================================================
 -- Group 7: Ranking
 -- Which products, customers and suppliers lead in sales?
